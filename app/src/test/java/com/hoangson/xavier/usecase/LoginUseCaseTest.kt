@@ -4,8 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.hoangson.xavier.core.models.ErrorType
 import com.hoangson.xavier.core.models.Output
 import com.hoangson.xavier.domain.model.LoginEntity
-import com.hoangson.xavier.domain.repository.LoginRepository
-import com.hoangson.xavier.domain.usecase.LoginUseCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule

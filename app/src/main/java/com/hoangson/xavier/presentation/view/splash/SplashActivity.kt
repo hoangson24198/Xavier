@@ -1,23 +1,32 @@
 package com.hoangson.xavier.presentation.view.splash
 
 import android.os.Bundle
-import com.hoangson.xavier.R
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import com.hoangson.xavier.core.bases.BaseActivity
-import com.hoangson.xavier.core.util.LayoutResId
+import com.hoangson.xavier.core.util.checkAllMatched
+import com.hoangson.xavier.presentation.view.auth.launchAuthActivity
+import com.hoangson.xavier.presentation.view.main.launchMainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-@LayoutResId(layout = R.layout.activity_splash)
+@AndroidEntryPoint
 class SplashActivity : BaseActivity() {
-
-    override fun onSyncViews(savedInstanceState: Bundle?) {
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fullScreen()
     }
-
-    override fun onSyncEvents() {
-
+    @Preview
+    @Composable
+    override fun setContent() {
+        super.setContent()
+        SplashView(
+            onLauncherComplete = { destination ->
+                when (destination) {
+                    LaunchDestination.MAIN_ACTIVITY -> launchMainActivity(context = this)
+                    LaunchDestination.AUTH_ACTIVITY -> launchAuthActivity(context = this)
+                }.checkAllMatched
+                finish()
+            }
+        )
     }
-
-    override fun onSyncData() {
-
-    }
-
 }

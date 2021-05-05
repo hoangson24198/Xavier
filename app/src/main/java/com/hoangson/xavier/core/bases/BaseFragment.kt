@@ -10,12 +10,23 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.hoangson.xavier.core.helper.KeyboardHelper
-import com.hoangson.xavier.core.ui.PlasmaTheme
 import com.hoangson.xavier.core.util.LayoutResId
+import com.hoangson.xavier.presentation.ui.XavierTheme
 
 abstract class BaseFragment : Fragment() {
     protected var rootView: View? = null
+
+    protected val navController by lazy { Navigation.findNavController(requireView()) }
+
+    protected fun fullScreen() {
+        (requireActivity() as BaseActivity).fullScreen()
+    }
+
+    protected fun exitFullScreen() {
+        (requireActivity() as BaseActivity).exitFullScreen()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -40,7 +51,7 @@ abstract class BaseFragment : Fragment() {
         return if (layoutResId == LayoutResId.LAYOUT_NOT_DEFINED) {
             ComposeView(requireContext()).apply {
                 setContent {
-                    PlasmaTheme {
+                    XavierTheme {
                         Surface(color = MaterialTheme.colors.surface) {
                             Box {
                                 setContent()
