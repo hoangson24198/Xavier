@@ -9,9 +9,9 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import com.hoangson.xaler.R
-import com.hoangson.xaler.core.util.EspressoIdlingResource
-import com.hoangson.xaler.presentation.login.LoginActivity
+import com.hoangson.xavier.R
+import com.hoangson.xavier.core.util.EspressoIdlingResource
+import com.hoangson.xavier.presentation.login.LoginActivity
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
 import org.junit.Before
