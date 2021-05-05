@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Xaler</string>
+    <string name="app_name">Xavier</string>
     <string name="title_activity_login">Sign in</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
