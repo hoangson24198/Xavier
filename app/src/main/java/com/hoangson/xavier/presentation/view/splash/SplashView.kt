@@ -13,11 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hoangson.xavier.R
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
 private const val SplashWaitTime: Long = 2000
 

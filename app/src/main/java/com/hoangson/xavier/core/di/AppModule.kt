@@ -2,8 +2,9 @@ package com.hoangson.xavier.core.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStoreFile
+import androidx.datastore.preferences.preferencesDataStore
 import com.hoangson.xavier.data.network.CommonHeaderInterceptor
 import com.hoangson.xavier.data.pref.DataStoreOperations
 import com.hoangson.xavier.data.pref.DataStoreRepository
@@ -23,17 +24,19 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
+import com.hoangson.xavier.core.Configuration
 
 const val dataStoreName = "XavierDataStore"
 
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
+    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
     @Singleton
     @Provides
     fun provideDataStore(
         @ApplicationContext context: Context
-    ) = context.preferencesDataStoreFile(dataStoreName)
+    ) = context.dataStore
 
     @Singleton
     @Provides
@@ -80,7 +83,7 @@ class AppModule {
     @Singleton
     fun provideRetroFit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BuildConfig.XAVIER_BASE_URL)
+            .baseUrl(Configuration.REMOTE_ENDPOINT)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()

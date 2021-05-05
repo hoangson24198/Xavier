@@ -1,128 +1,183 @@
 package com.hoangson.xavier.presentation.ui
 
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.sp
 import com.hoangson.xavier.R
 
-private val plasmaFontFamily = FontFamily(
-        fonts = listOf(
-                Font(
-                        resId = R.font.ps_thin,
-                        weight = FontWeight.W200,
-                        style = FontStyle.Normal
-                ),
-                Font(
-                        resId = R.font.ps_thin_italic,
-                        weight = FontWeight.W200,
-                        style = FontStyle.Italic
-                ),
-                Font(
-                        resId = R.font.ps_regular,
-                        weight = FontWeight.W400,
-                        style = FontStyle.Normal
-                ),
-                Font(
-                        resId = R.font.ps_regular_italic,
-                        weight = FontWeight.W400,
-                        style = FontStyle.Italic
-                ),
-                Font(
-                        resId = R.font.ps_semi_bold,
-                        weight = FontWeight.W500,
-                        style = FontStyle.Normal
-                ),
-                Font(
-                        resId = R.font.ps_semi_bold_italic,
-                        weight = FontWeight.W500,
-                        style = FontStyle.Italic
-                ),
-                Font(
-                        resId = R.font.ps_bold,
-                        weight = FontWeight.W600,
-                        style = FontStyle.Normal
-                ),
-                Font(
-                        resId = R.font.ps_bold_italic,
-                        weight = FontWeight.W600,
-                        style = FontStyle.Italic
-                ),
-                Font(
-                        resId = R.font.ps_extra_bold,
-                        weight = FontWeight.W700,
-                        style = FontStyle.Normal
-                ),
-                Font(
-                        resId = R.font.ps_extra_bold_italic,
-                        weight = FontWeight.W700,
-                        style = FontStyle.Italic
-                )
+private val Montserrat = FontFamily(
+        Font(R.font.montserrat_light, FontWeight.Light),
+        Font(R.font.montserrat_regular, FontWeight.Normal),
+        Font(R.font.montserrat_medium, FontWeight.Medium),
+        Font(R.font.montserrat_semibold, FontWeight.SemiBold)
+)
+
+val DelishTypography = Typography(
+        h1 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 96.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 117.sp,
+                letterSpacing = (-1.5).sp
+        ),
+        h2 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 60.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 73.sp,
+                letterSpacing = (-0.5).sp
+        ),
+        h3 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 48.sp,
+                fontWeight = FontWeight.Normal,
+                lineHeight = 59.sp
+        ),
+        h4 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 30.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 37.sp
+        ),
+        h5 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 29.sp
+        ),
+        h6 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 24.sp
+        ),
+        subtitle1 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 20.sp,
+                letterSpacing = 0.5.sp
+        ),
+        subtitle2 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                lineHeight = 17.sp,
+                letterSpacing = 0.1.sp
+        ),
+        body1 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium,
+                lineHeight = 20.sp,
+                letterSpacing = 0.15.sp
+        ),
+        body2 = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 20.sp,
+                letterSpacing = 0.25.sp
+        ),
+        button = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 16.sp,
+                letterSpacing = 1.25.sp
+        ),
+        caption = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 16.sp,
+                letterSpacing = 0.sp
+        ),
+        overline = TextStyle(
+                fontFamily = Montserrat,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 16.sp,
+                letterSpacing = 1.sp
         )
 )
 
-val titleFontFamily = FontFamily(listOf(Font(resId = R.font.title)))
-val titleTextStyle = TextStyle(fontFamily = titleFontFamily, fontSize = 50.sp)
-
-// Set of Material typography styles to start with
-val typography = Typography(
-        h2 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W600,
-                fontSize = 30.sp
-        ),
-        h3 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W500,
+// set of dark material typography styles to start with.
+val DarkTypography = Typography(
+        h1 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
                 fontSize = 28.sp
         ),
-        h4 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W600,
-                fontSize = 24.sp
+        h2 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                fontSize = 21.sp
         ),
-        h5 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W600,
-                fontSize = 20.sp
+        body1 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                color = Color.White,
+                fontSize = 14.sp
         ),
-        h6 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W500,
-                fontSize = 16.sp
+        body2 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                color = white87,
+                fontSize = 14.sp
         ),
         subtitle1 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W400,
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
                 fontSize = 16.sp
         ),
         subtitle2 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W400,
-                fontSize = 14.sp
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                color = Color.Gray
+        )
+)
+
+// set of light material typography styles to start with.
+val LightTypography = Typography(
+        h1 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Bold,
+                color = background900,
+                fontSize = 28.sp
+        ),
+        h2 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Bold,
+                color = background900,
+                fontSize = 21.sp
         ),
         body1 = TextStyle(
-                fontFamily = plasmaFontFamily,
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                color = background800,
+                fontSize = 14.sp
+        ),
+        body2 = TextStyle(
+                fontFamily = FontFamily.Default,
+                fontWeight = FontWeight.Normal,
+                color = background800,
+                fontSize = 14.sp
+        ),
+        subtitle1 = TextStyle(
+                fontFamily = FontFamily.Default,
                 fontWeight = FontWeight.Normal,
                 fontSize = 16.sp
         ),
-        body2 = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontSize = 14.sp
-        ),
-        button = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W500,
-                fontSize = 14.sp
-        ),
-        caption = TextStyle(
-                fontFamily = plasmaFontFamily,
+        subtitle2 = TextStyle(
+                fontFamily = FontFamily.Default,
                 fontWeight = FontWeight.Normal,
-                fontSize = 14.sp
-        ),
-        overline = TextStyle(
-                fontFamily = plasmaFontFamily,
-                fontWeight = FontWeight.W500,
-                fontSize = 12.sp
+                fontSize = 14.sp,
+                color = Color.Gray
         )
 )
