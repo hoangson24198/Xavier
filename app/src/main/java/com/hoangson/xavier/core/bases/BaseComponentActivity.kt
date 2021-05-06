@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import com.hoangson.xavier.core.util.LayoutResId
 import com.hoangson.xavier.presentation.ui.XavierTheme
 
-abstract class BaseActivity : ComponentActivity() {
+abstract class BaseComponentActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val layoutResId: Int = getLayout()

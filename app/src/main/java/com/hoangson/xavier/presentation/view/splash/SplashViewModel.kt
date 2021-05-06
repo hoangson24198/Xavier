@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoangson.xavier.core.models.Result
 import com.hoangson.xavier.domain.pref.OnBoardingCompletedUseCase
+import com.hoangson.xavier.domain.pref.OnUserLoggedInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val onBoardingCompletedUseCase: OnBoardingCompletedUseCase
+    private val onUserLoggedInUseCase: OnUserLoggedInUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LauncherViewState())
@@ -27,9 +28,9 @@ class SplashViewModel @Inject constructor(
 
     private fun getLaunchDestination() {
         viewModelScope.launch {
-            onBoardingCompletedUseCase(Unit).collect { result ->
+            onUserLoggedInUseCase(Unit).collect { result ->
                 if (result is Result.Success) {
-                    if (result.data) {
+                    if (result.data != -1L) {
                         _state.value = LauncherViewState(LaunchDestination.MAIN_ACTIVITY)
                     } else {
                         LauncherViewState(LaunchDestination.AUTH_ACTIVITY)

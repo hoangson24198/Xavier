@@ -5,17 +5,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hoangson.xavier.R
+import com.hoangson.xavier.presentation.compose.layout.GradientText
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 private const val SplashWaitTime: Long = 2000
 
@@ -37,10 +37,7 @@ fun SplashView(
             delay(SplashWaitTime)
             currentOnTimeout(viewState.launchDestination)
         }
-
-        Image(
-            painter = painterResource(id = R.drawable.ic_delish_logo),
-            contentDescription = null
-        )
+        Timber.d("HSSplash")
+        GradientText(mutableStateOf("X").value)
     }
 }

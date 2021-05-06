@@ -9,20 +9,20 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class DataStoreRepository<T,D> @Inject constructor(
+class DataStoreRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>
-) : DataStoreOperations<T,D> {
+) {
 
-    override suspend fun save(key: Preferences.Key<T>, value: D) {
+    suspend fun save(key: Preferences.Key<Boolean>, value: Boolean) {
         dataStore.edit {
             it[key] = value
         }
     }
 
-    override fun read(key: Preferences.Key<T>): Flow<Result<D>> {
+    fun read(key: Preferences.Key<Boolean>): Flow<Result<Boolean>> {
         return dataStore.data
             .map {
-                Result.Success(it[key])
+                Result.Success(it[key] ?: false)
             }.catch {
                 Result.Error(Exception(it))
             }

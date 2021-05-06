@@ -2,11 +2,9 @@ package com.hoangson.xavier.core.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.hoangson.xavier.data.network.CommonHeaderInterceptor
-import com.hoangson.xavier.data.pref.DataStoreOperations
 import com.hoangson.xavier.data.pref.DataStoreRepository
 import com.hoangson.xavier.data.remote.ApiService
 import com.squareup.moshi.Moshi
@@ -40,7 +38,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDataStoreRepository(dataStore: DataStore<Preferences>): DataStoreOperations =
+    fun provideDataStoreRepository(dataStore: DataStore<Preferences>): DataStoreRepository =
         DataStoreRepository(dataStore)
 
     @Singleton

@@ -21,15 +21,11 @@ abstract class BaseFragment : Fragment() {
     protected val navController by lazy { Navigation.findNavController(requireView()) }
 
     protected fun fullScreen() {
-        (requireActivity() as BaseActivity).fullScreen()
+        (requireActivity() as BaseComponentActivity).fullScreen()
     }
 
     protected fun exitFullScreen() {
-        (requireActivity() as BaseActivity).exitFullScreen()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        (requireActivity() as BaseComponentActivity).exitFullScreen()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,17 +68,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     @Composable
-    open fun setContent() {
-        onSyncViews()
-        onSyncEvents()
-        onSyncData()
-    }
-
-    protected abstract fun onSyncViews()
-
-    protected abstract fun onSyncEvents()
-
-    protected abstract fun onSyncData()
+    open fun setContent() {}
 
     open fun onArgumentsReady(bundle: Bundle) {}
 

@@ -19,6 +19,10 @@ val Green500 = Color(0xFF1EB980)
 val DarkBlue900 = Color(0xFF26282F)
 val orangeError = Color(0xFFF94701)
 
+val String.color
+    get() = Color(android.graphics.Color.parseColor(this))
+val whiteBlueGradient = listOf(white87,"#FF56bee0".color, blue200)
+
 @Composable
 fun Colors.compositedOnSurface(alpha: Float): Color {
     return onSurface.copy(alpha = alpha).compositeOver(surface)
