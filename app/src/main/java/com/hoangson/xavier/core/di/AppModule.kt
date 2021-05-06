@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 import com.hoangson.xavier.core.Configuration
+import com.hoangson.xavier.data.pref.UserDataStoreRepository
 
 const val dataStoreName = "XavierDataStore"
 
@@ -40,6 +41,11 @@ class AppModule {
     @Provides
     fun provideDataStoreRepository(dataStore: DataStore<Preferences>): DataStoreRepository =
         DataStoreRepository(dataStore)
+
+    @Singleton
+    @Provides
+    fun provideUserDataStoreRepository(dataStore: DataStore<Preferences>): UserDataStoreRepository =
+        UserDataStoreRepository(dataStore)
 
     @Singleton
     @Provides

@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 class SplashFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fullScreen()
     }
     @Composable
     override fun setContent() {
