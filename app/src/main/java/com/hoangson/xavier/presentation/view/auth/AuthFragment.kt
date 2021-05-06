@@ -23,7 +23,7 @@ class AuthFragment : BaseFragment() {
                 .background(MaterialTheme.colors.background),
             contentAlignment = Alignment.Center
         ) {
-            GradientText(mutableStateOf("X").value)
+            GradientText(mutableStateOf("Xavier").value)
         }
     }
 }

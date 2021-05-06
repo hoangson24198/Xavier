@@ -1,12 +1,8 @@
 package com.hoangson.xavier.presentation.view.splash
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoangson.xavier.core.models.Result
-import com.hoangson.xavier.data.pref.DataStoreRepository
-import com.hoangson.xavier.data.pref.UserDataStoreRepository
-import com.hoangson.xavier.domain.pref.OnBoardingCompletedUseCase
 import com.hoangson.xavier.domain.pref.OnUserLoggedInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val onDataStoreRepository: DataStoreRepository
+    private val userLoggedInUseCase: OnUserLoggedInUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LauncherViewState())
@@ -30,7 +26,7 @@ class SplashViewModel @Inject constructor(
 
     private fun getLaunchDestination() {
         viewModelScope.launch {
-            onDataStoreRepository(Unit).collect { result ->
+            userLoggedInUseCase(Unit).collect { result ->
                 if (result is Result.Success) {
                     if (result.data != -1L) {
                         _state.value = LauncherViewState(LaunchDestination.MAIN_ACTIVITY)

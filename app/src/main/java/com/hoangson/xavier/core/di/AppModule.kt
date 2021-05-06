@@ -24,6 +24,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 import com.hoangson.xavier.core.Configuration
 import com.hoangson.xavier.data.pref.UserDataStoreRepository
+import dagger.hilt.android.scopes.ViewModelScoped
 
 const val dataStoreName = "XavierDataStore"
 
