@@ -23,6 +23,7 @@ import com.hoangson.xavier.core.bases.BaseFragment
 import com.hoangson.xavier.core.util.navigateSafely
 import com.hoangson.xavier.presentation.compose.animation.*
 import com.hoangson.xavier.presentation.compose.layout.*
+import com.hoangson.xavier.presentation.ui.whiteGhostGradient
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,6 +56,7 @@ class AuthFragment : BaseFragment() {
                     contentDescription = null
                 )
             }
+            VideoBackGround("asset:///sunset.mp4")
             var mainState by remember { mutableStateOf(MainTransitionState.START)}
             Handler(Looper.getMainLooper()).postDelayed({
                 mainState = MainTransitionState.END
@@ -64,7 +66,7 @@ class AuthFragment : BaseFragment() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                GradientText("XAVIER".substring(0, titleIndexPropkey(mainState)))
+                GradientText("XAVIER".substring(0, titleIndexPropkey(mainState)),colors = whiteGhostGradient)
             }
             Column(
                 Modifier.fillMaxWidth().align(Alignment.Center).offset(y = 50.dp)

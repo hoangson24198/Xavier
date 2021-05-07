@@ -6,6 +6,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -58,7 +59,7 @@ fun CardButton(text: String, icon: Int = -1, modifier: Modifier = Modifier, heig
                 .fillMaxWidth()
                 .clickable(onClick = onClick).height(height.dp)) {
             BoxWithConstraints {
-                Box(modifier.fillMaxSize().background(Brush.horizontalGradient(whiteBlueGradient, 0F, constraints.maxWidth.toFloat(), TileMode.Clamp))) {
+                Box(modifier.fillMaxSize().border(1.dp, Color.White).background(Color.Transparent)) {
                     Row(verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier.fillMaxSize().padding(16.dp, 0.dp)) {
                         if (icon > 0) {
@@ -167,5 +168,13 @@ fun mutedVideoPlayer(url : String){
         onDispose {
             exoPlayer.release()
         }
+    }
+}
+
+@Composable
+fun VideoBackGround(url: String) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        //mutedVideoPlayer("asset:///sea.mp4")
+        mutedVideoPlayer(url)
     }
 }

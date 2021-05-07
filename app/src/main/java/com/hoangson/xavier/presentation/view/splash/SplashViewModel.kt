@@ -3,6 +3,7 @@ package com.hoangson.xavier.presentation.view.splash
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoangson.xavier.core.models.Result
+import com.hoangson.xavier.core.models.data
 import com.hoangson.xavier.domain.pref.OnBoardingCompletedUseCase
 import com.hoangson.xavier.domain.pref.OnUserLoggedInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +20,11 @@ class SplashViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(LauncherViewState())
+    private val _viewState = MutableStateFlow(false)
     val state: StateFlow<LauncherViewState>
         get() = _state
+    val viewState: StateFlow<Boolean>
+        get() = _viewState
 
     init {
         getLaunchDestination()
@@ -29,11 +33,12 @@ class SplashViewModel @Inject constructor(
     private fun getLaunchDestination() {
         viewModelScope.launch {
             userLoggedInUseCase(Unit).collect { userId ->
-                onBoardingCompletedUseCase(Unit).collect{ isOnboardComplete ->
-                    if (isOnboardComplete is Result.Success){
+                onBoardingCompletedUseCase(Unit).collect { isOnboardComplete ->
+                    if (isOnboardComplete is Result.Success) {
+                        _viewState.value = isOnboardComplete.data
                         if (!isOnboardComplete.data)
                             _state.value = LauncherViewState(LaunchDestination.ONBOARD)
-                    }else{
+                    } else {
                         if (userId is Result.Success) {
                             if (userId.data != -1L) {
                                 _state.value = LauncherViewState(LaunchDestination.MAIN_ACTIVITY)

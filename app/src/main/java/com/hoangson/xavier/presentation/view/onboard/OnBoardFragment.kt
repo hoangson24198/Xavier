@@ -6,6 +6,7 @@ import androidx.compose.animation.*
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -37,6 +38,7 @@ import com.hoangson.xavier.presentation.compose.animation.titleIndexPropkey
 import com.hoangson.xavier.presentation.compose.animation.titleOffsetPropkey
 import com.hoangson.xavier.presentation.compose.layout.GradientText
 import com.hoangson.xavier.presentation.compose.layout.OnBoardingSlide
+import com.hoangson.xavier.presentation.compose.layout.VideoBackGround
 import com.hoangson.xavier.presentation.compose.layout.mutedVideoPlayer
 import com.hoangson.xavier.presentation.custom.MutedVideoView
 import com.hoangson.xavier.presentation.ui.whiteGhostGradient
@@ -55,18 +57,6 @@ class OnBoardFragment : BaseFragment() {
     override fun setContent() {
         super.setContent()
         OnBoardingContent()
-    }
-
-    @Composable
-    private fun VideoBackGround() {
-        Box(modifier = Modifier.fillMaxSize()) {
-            mutedVideoPlayer("asset:///sea.mp4")
-        }
-    }
-
-    @Composable
-    private fun onBoardFooter(){
-
     }
 
     @Composable
@@ -95,7 +85,7 @@ class OnBoardFragment : BaseFragment() {
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            VideoBackGround()
+            VideoBackGround("asset:///sea.mp4")
             var mainState by remember { mutableStateOf(MainTransitionState.START) }
             Handler(Looper.getMainLooper()).postDelayed({
                 mainState = MainTransitionState.END
@@ -113,8 +103,10 @@ class OnBoardFragment : BaseFragment() {
                 )
             }
             //Footer
-            Row(modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
-                .alpha(titleAlphaPropkey(mainState))){
+            Row(
+                modifier = Modifier.fillMaxWidth().align(Alignment.BottomCenter)
+                    .alpha(titleAlphaPropkey(mainState))
+            ) {
                 AnimatedVisibility(
                     visible = getStartedVisible.value,
                     enter = slideInVertically(initialOffsetY = { -40 }) + expandVertically(
@@ -126,8 +118,10 @@ class OnBoardFragment : BaseFragment() {
                             viewModel.getStartedClick()
                         },
                         modifier = Modifier
-                            .padding(vertical = 32.dp, horizontal = 120.dp),
-                        shape = MaterialTheme.shapes.small
+                            .padding(vertical = 32.dp, horizontal = 150.dp),
+                        shape = MaterialTheme.shapes.medium,
+                        border = BorderStroke(1.dp, Color.White),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent)
                     ) {
                         Text(
                             text = stringResource(id = R.string.onBoarding_start),
@@ -175,7 +169,7 @@ class OnBoardFragment : BaseFragment() {
                                 if (currentPage.value != onBoardingItemsList.size - 1) {
                                     currentPage.value = currentPage.value + 1
                                 }
-                                if (currentPage.value != onBoardingItemsList.size - 2) {
+                                if (currentPage.value != onBoardingItemsList.size - (onBoardingItemsList.size - 1)) {
                                     getStartedVisible.value = true
                                 }
                             },
@@ -202,7 +196,7 @@ class OnBoardFragment : BaseFragment() {
                     .alpha(titleAlphaPropkey(mainState))
                     .padding(0.dp, 30.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
+            ) {
 
                 Text(
                     text = stringResource(id = onBoardingItemsList[currentPage.value].titleId),
@@ -220,7 +214,7 @@ class OnBoardFragment : BaseFragment() {
                     style = MaterialTheme.typography.subtitle2,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(start = 30.dp, top = 16.dp, end = 30.dp),
-                    color = Color.LightGray
+                    color = Color.White
                 )
             }
         }
