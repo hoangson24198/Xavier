@@ -2,32 +2,34 @@ package com.hoangson.xavier.presentation.compose.animation
 
 import androidx.compose.animation.core.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.hoangson.xavier.presentation.compose.animation.MainTransitionState.END
 import com.hoangson.xavier.presentation.compose.animation.MainTransitionState.START
 
-class TransitionData(
-    index: Int,
-    offset: Dp,
-    alpha : Float
-)
-enum class MainTransitionState{
+enum class MainTransitionState {
     START, END
 }
 
 @Composable
-fun handleMainFragmentTransition(mainFragmentTransition: MainTransitionState) : TransitionData{
-    val transition = updateTransition(mainFragmentTransition)
-    val index : Int by animateIntAsState(
-        targetValue = when(mainFragmentTransition){
-            START -> 0
-            END -> 6
-        },
-        animationSpec = keyframes {
+fun titleOffsetPropkey(state: MainTransitionState,value : Int): Dp {
+    val transition: Transition<MainTransitionState> = updateTransition(state)
+    val offset: Dp by transition.animateDp(transitionSpec = {tween(
+        durationMillis = 500,
+        delayMillis = 1100,
+        easing = FastOutLinearInEasing
+    )},label = ""){state ->
+        if (state == START) 0.dp else value.dp
+    }
+    return offset
+}
+
+
+@Composable
+fun titleIndexPropkey(state: MainTransitionState): Int {
+    val transition: Transition<MainTransitionState> = updateTransition(state)
+    val index: Int by transition.animateInt(transitionSpec = {
+        keyframes {
             durationMillis = 600
             1 at 100
             2 at 200
@@ -35,21 +37,23 @@ fun handleMainFragmentTransition(mainFragmentTransition: MainTransitionState) : 
             4 at 400
             5 at 500
         }
-    )
-    val offset : Dp by animateDpAsState(
-        targetValue = when(mainFragmentTransition){
-            START -> 0.dp
-            END -> (-150).dp
-        },
-        animationSpec = tween(durationMillis = 500, delayMillis = 1100, easing = FastOutLinearInEasing)
-    )
+    }, label = "") { state ->
+        if (state == START) 0 else 6
+    }
+    return index
+}
 
-    val alpha : Float by animateFloatAsState(
-        targetValue = when(mainFragmentTransition){
-            START -> 0F
-            END -> 1F
-        },
-        animationSpec = tween(durationMillis = 1000, delayMillis = 1600, easing = LinearOutSlowInEasing)
-    )
-    return remember(transition){ TransitionData(index,offset,alpha) }
+@Composable
+fun titleAlphaPropkey(state: MainTransitionState): Float {
+    val transition: Transition<MainTransitionState> = updateTransition(state)
+    val alpha: Float by transition.animateFloat(transitionSpec = {
+        tween(
+            durationMillis = 1000,
+            delayMillis = 1600,
+            easing = LinearOutSlowInEasing
+        )
+    }, label = "") { state ->
+        if (state == START) 0F else 1F
+    }
+    return alpha
 }

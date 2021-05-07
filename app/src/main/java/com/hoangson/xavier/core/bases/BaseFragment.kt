@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -14,18 +15,25 @@ import androidx.navigation.Navigation
 import com.hoangson.xavier.core.helper.KeyboardHelper
 import com.hoangson.xavier.core.util.LayoutResId
 import com.hoangson.xavier.presentation.ui.XavierTheme
+import com.hoangson.xavier.presentation.view.main.MainActivity
 
 abstract class BaseFragment : Fragment() {
     protected var rootView: View? = null
 
+    protected val mainActivity by lazy { (requireActivity() as MainActivity)}
     protected val navController by lazy { Navigation.findNavController(requireView()) }
 
     protected fun fullScreen() {
-        (requireActivity() as BaseComponentActivity).fullScreen()
+        activity?.actionBar?.hide()
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
     protected fun exitFullScreen() {
-        (requireActivity() as BaseComponentActivity).exitFullScreen()
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

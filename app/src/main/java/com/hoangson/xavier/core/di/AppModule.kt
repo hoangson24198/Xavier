@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.hoangson.xavier.data.network.CommonHeaderInterceptor
 import com.hoangson.xavier.data.pref.DataStoreRepository
 import com.hoangson.xavier.data.remote.ApiService
@@ -95,8 +97,13 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDelishApi(retrofit: Retrofit): ApiService =
+    fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideExoPlayer(@ApplicationContext context: Context): ExoPlayer =
+        SimpleExoPlayer.Builder(context).build()
 }
 
 

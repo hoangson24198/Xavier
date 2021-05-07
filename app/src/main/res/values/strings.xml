@@ -9,5 +9,13 @@
     <string name="title_activity_splash">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-
+    <string name="onBoarding_page_1_title">Search for any recipe you want</string>
+    <string name="onBoarding_page_1_Description">Browse and fin any recipe you are looking for. Also you can search by the ingredient you like.</string>
+    <string name="onBoarding_page_2_title">Book mark and save your favourite recipe</string>
+    <string name="onBoarding_page_2_Description">Save all your favourite recipes and get it later locally.</string>
+    <string name="onBoarding_page_3_title">Add your week meal plan</string>
+    <string name="onBoarding_page_3_Description">Plan for the whole week, add the ingredients, browse recipes and add it easily and fast.</string>
+    <string name="onBoarding_start">Lets go</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
 </resources>

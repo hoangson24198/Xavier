@@ -11,6 +11,9 @@ val background = Color(0xFF2B292B)
 val background800 = Color(0xFF424242)
 val background900 = Color(0xFF212121)
 val white87 = Color(0Xddffffff)
+val white = Color(0xffffffff)
+val teal200 = Color(0XFF68E4DC)
+val silver = Color(0xFFC0C0C0)
 
 val darkPrimary = Color(0xff242316)
 
@@ -18,10 +21,15 @@ val blue200 = Color(0xff91a4fc)
 val Green500 = Color(0xFF1EB980)
 val DarkBlue900 = Color(0xFF26282F)
 val orangeError = Color(0xFFF94701)
+val whiteGhost = Color(0xFFF8F8FF)
+val transparent = Color(0x00FFFFFF)
+
 
 val String.color
     get() = Color(android.graphics.Color.parseColor(this))
-val whiteBlueGradient = listOf(white87,"#FF56bee0".color, blue200)
+val whiteBlueGradient = listOf(teal200,"#FF56bee0".color, blue200)
+
+val whiteGhostGradient = listOf(whiteGhost, white87, white)
 
 @Composable
 fun Colors.compositedOnSurface(alpha: Float): Color {
