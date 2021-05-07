@@ -34,6 +34,8 @@ import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
+import com.hoangson.xavier.presentation.ui.white30
+import com.hoangson.xavier.presentation.ui.white87
 import javax.inject.Inject
 
 
@@ -46,7 +48,7 @@ fun rememberKenBurnsView(): KenBurnsView {
 @Composable
 fun XavierCardView(modifier: Modifier, content: @Composable () -> Unit) = Card(elevation = 4.dp,
         modifier = modifier,
-        backgroundColor = MaterialTheme.colors.surface,
+        backgroundColor = white30,
         shape = MaterialTheme.shapes.small) {
     Box(modifier = modifier,contentAlignment = Alignment.CenterStart) {
         content()

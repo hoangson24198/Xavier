@@ -57,7 +57,7 @@ class SplashFragment : BaseFragment() {
         onLauncherComplete: (LaunchDestination) -> Unit
     ) {
         val viewModel = ViewModelProvider(requireActivity()).get(SplashViewModel::class.java)
-        val launchDestination: Boolean by viewModel.viewState.collectAsState()
+        val launchDestination by viewModel.viewState.collectAsState()
         val viewState by viewModel.state.collectAsState()
         Box(
             modifier = modifier
@@ -69,13 +69,13 @@ class SplashFragment : BaseFragment() {
                 delay(SplashWaitTime)
                 currentOnTimeout(viewState.launchDestination)
             }
-            if (launchDestination)
+            if (launchDestination.bgId == InitBg.SUNSET)
                 Image(
                     painter = painterResource(R.drawable.splash_bg_2),
                     contentDescription = "",
                     modifier = modifier.matchParentSize()
                 )
-            else
+            else if (launchDestination.bgId == InitBg.SEA)
                 Image(
                     painter = painterResource(R.drawable.splash_bg),
                     contentDescription = "",
