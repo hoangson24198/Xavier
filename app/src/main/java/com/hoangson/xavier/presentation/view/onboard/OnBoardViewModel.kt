@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoangson.xavier.R
 import com.hoangson.xavier.data.models.OnBoardItem
-import com.hoangson.xavier.domain.pref.OnBoardingCompleteSaveUseCase
+import com.hoangson.xavier.domain.pref.OnBoardingCompleteSuspenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardViewModel @Inject constructor(
-    private val onBoardingCompleteSaveUseCase: OnBoardingCompleteSaveUseCase
+    private val onBoardingCompleteSuspenUseCase: OnBoardingCompleteSuspenUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(false)
     val viewState: StateFlow<Boolean>
@@ -21,7 +21,7 @@ class OnBoardViewModel @Inject constructor(
 
     fun getStartedClick() {
         viewModelScope.launch {
-            onBoardingCompleteSaveUseCase(true)
+            onBoardingCompleteSuspenUseCase(true)
             _state.value = true
         }
     }

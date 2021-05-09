@@ -6,7 +6,7 @@ import com.hoangson.xavier.domain.SuspendUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class OnBoardingCompleteSaveUseCase @Inject constructor(
+class OnBoardingCompleteSuspenUseCase @Inject constructor(
     private val dataStoreRepository: DataStoreRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ): SuspendUseCase<Boolean, Unit>(dispatcher) {

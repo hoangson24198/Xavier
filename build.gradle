@@ -3,7 +3,7 @@ buildscript {
     ext {
         compose_version = '1.0.0-beta06'
         moshiVersion = '1.8.0'
-        okhttp3_version = '4.2.0'
+        okhttp3_version = '4.9.0'
         retrofit2_version = '2.9.0'
         kotlinCoroutineVersion = '1.4.1'
         hilt_version = "2.33-beta"

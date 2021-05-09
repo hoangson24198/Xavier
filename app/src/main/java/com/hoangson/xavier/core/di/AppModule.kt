@@ -6,11 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.hoangson.xavier.data.network.CommonHeaderInterceptor
 import com.hoangson.xavier.data.pref.DataStoreRepository
 import com.hoangson.xavier.data.remote.ApiService
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,20 +20,21 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 import com.hoangson.xavier.core.Configuration
 import com.hoangson.xavier.data.pref.UserDataStoreRepository
-import dagger.hilt.android.scopes.ViewModelScoped
+import com.hoangson.xavier.data.pref.operators.DataStoreOperations
+import com.hoangson.xavier.data.pref.operators.UserDataStoreOperations
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
-const val dataStoreName = "XavierDataStore"
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule {
-    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(dataStoreName)
+object AppModule {
+    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(Configuration.DATASTORE_NAME)
     @Singleton
     @Provides
     fun provideDataStore(
@@ -42,12 +43,12 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideDataStoreRepository(dataStore: DataStore<Preferences>): DataStoreRepository =
+    fun provideDataStoreRepository(dataStore: DataStore<Preferences>): DataStoreOperations =
         DataStoreRepository(dataStore)
 
     @Singleton
     @Provides
-    fun provideUserDataStoreRepository(dataStore: DataStore<Preferences>): UserDataStoreRepository =
+    fun provideUserDataStoreRepository(dataStore: DataStore<Preferences>): UserDataStoreOperations =
         UserDataStoreRepository(dataStore)
 
     @Singleton
@@ -73,26 +74,27 @@ class AppModule {
         @Named("logging") httpLoggingInterceptor: Interceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .connectTimeout(10L, TimeUnit.SECONDS)
-            .writeTimeout(10L, TimeUnit.SECONDS)
-            .readTimeout(30L, TimeUnit.SECONDS)
+            .connectTimeout(45L, TimeUnit.SECONDS)
+            .writeTimeout(45L, TimeUnit.SECONDS)
+            .readTimeout(45L, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideMoshi() = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    fun provideGson() = GsonBuilder()
+        .setLenient()
+        .create()
 
     @Provides
     @Singleton
-    fun provideRetroFit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit =
+    fun provideRetroFit(okHttpClient: OkHttpClient,gson: Gson): Retrofit =
         Retrofit.Builder()
             .baseUrl(Configuration.REMOTE_ENDPOINT)
             .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
     @Singleton

@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.hoangson.xavier.core.models.Result
+import com.hoangson.xavier.data.pref.operators.UserDataStoreOperations
 import com.hoangson.xavier.domain.pref.PreferencesKeys
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -14,21 +15,21 @@ import javax.inject.Inject
 
 class UserDataStoreRepository @Inject constructor(
     private val dataStore : DataStore<Preferences>
-) {
-    suspend fun setLoggedInUserId(username : String, userId : Long) {
+) : UserDataStoreOperations{
+    override suspend fun setLoggedInUser(username : String, userId : Long) {
         dataStore.edit {
             it[PreferencesKeys.userName] = username
             it[PreferencesKeys.userId] = userId
         }
     }
 
-    suspend fun clearUserData(){
+    override suspend fun clearUserData(){
         dataStore.edit {
             it.clear()
         }
     }
 
-    fun readUserId() : Flow<Result<Long>>{
+    override fun readUserId() : Flow<Result<Long>>{
         return dataStore.data
             .map {
             Result.Success(it[PreferencesKeys.userId] ?: -1)
@@ -38,7 +39,7 @@ class UserDataStoreRepository @Inject constructor(
             }
     }
 
-    fun readUserName() : Flow<Result<String>>{
+    override fun readUserName() : Flow<Result<String>>{
         return dataStore.data
             .map {
                 Result.Success(it[PreferencesKeys.userName] ?: "")
@@ -48,5 +49,5 @@ class UserDataStoreRepository @Inject constructor(
             }
     }
 
-    fun loggedInUserIdLiveData(): LiveData<Long?> = dataStore.data.map{ it[PreferencesKeys.userId]}.asLiveData()
+    override fun loggedInUserIdLiveData(): LiveData<Long?> = dataStore.data.map{ it[PreferencesKeys.userId]}.asLiveData()
 }
