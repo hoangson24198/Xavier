@@ -2,11 +2,10 @@ package com.hoangson.xavier.data.remote
 
 import com.google.gson.JsonObject
 import com.hoangson.xavier.core.bases.BaseResponse
-import com.hoangson.xavier.core.helper.HandleState
+import com.hoangson.xavier.core.helper.handleApi
+import com.hoangson.xavier.core.models.Result
 import com.hoangson.xavier.data.models.User
-import com.hoangson.xavier.data.pref.UserDataStoreRepository
 import com.hoangson.xavier.data.remote.operators.AuthOperations
-import io.reactivex.Observable
 import retrofit2.Response
 import javax.inject.Inject
 

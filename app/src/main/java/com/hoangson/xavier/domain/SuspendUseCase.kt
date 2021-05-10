@@ -1,6 +1,5 @@
 package com.hoangson.xavier.domain
 
-import com.hoangson.xavier.core.models.Command
 import com.hoangson.xavier.core.models.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -8,16 +7,16 @@ import timber.log.Timber
 
 abstract class SuspendUseCase<in P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
 
-    suspend operator fun invoke(parameters: P): Command<R> {
+    suspend operator fun invoke(parameters: P): Result<R> {
         return try {
             withContext(coroutineDispatcher) {
                 execute(parameters).let {
-                    Command.Success(it)
+                    Result.Success(it)
                 }
             }
         } catch (e: Exception) {
             Timber.d(e)
-            Command.Failure(e)
+            Result.Error(e)
         }
     }
 

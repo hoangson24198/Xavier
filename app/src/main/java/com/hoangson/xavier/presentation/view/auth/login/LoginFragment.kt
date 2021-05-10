@@ -16,11 +16,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hoangson.xavier.core.bases.BaseFragment
+import com.hoangson.xavier.core.models.Result
 import com.hoangson.xavier.core.util.navigateSafely
-import com.hoangson.xavier.core.models.Command
 import com.hoangson.xavier.presentation.compose.layout.*
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -110,22 +109,5 @@ class LoginFragment : BaseFragment() {
                 })
             }
         }
-
-        viewModel.command.observe(this, Observer {
-            when (it) {
-                is Command.Loading -> {
-
-                }
-                is Command.NoLoading -> {
-
-                }
-                is Command.Error -> {
-
-                }
-                is Command.Success -> {
-                    onLoginComplete.invoke()
-                }
-            }
-        })
     }
 }

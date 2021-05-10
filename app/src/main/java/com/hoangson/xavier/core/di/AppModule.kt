@@ -94,7 +94,6 @@ object AppModule {
             .baseUrl(Configuration.REMOTE_ENDPOINT)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
     @Singleton

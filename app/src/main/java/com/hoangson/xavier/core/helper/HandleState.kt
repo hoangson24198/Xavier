@@ -3,11 +3,12 @@ package com.hoangson.xavier.core.helper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
-import com.hoangson.xavier.core.di.IoDispatcher
+import com.google.gson.JsonSyntaxException
 import com.hoangson.xavier.core.models.ActionCommand
-import com.hoangson.xavier.core.models.Command
-import kotlinx.coroutines.CoroutineDispatcher
+import com.hoangson.xavier.core.models.Result
+import org.json.JSONObject
 import retrofit2.Response
+import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class HandleState<T>(
@@ -21,18 +22,18 @@ class HandleState<T>(
         liveData(context = coroutineContext) {
             when (action.value) {
                 ActionCommand.Load -> {
-                    emit(Command.Loading)
+                    emit(Result.Loading)
                 }
 
                 ActionCommand.SwipeRefresh -> {
-                    emit(Command.SwipeRefreshing)
+                    emit(Result.SwipeRefreshing)
                 }
 
                 ActionCommand.Retry -> {
-                    emit(Command.Retrying)
+                    emit(Result.Retrying)
                 }
                 ActionCommand.LoadDone -> {
-                    emit(Command.NoLoading)
+                    emit(Result.NoLoading)
                 }
             }
 
@@ -42,26 +43,26 @@ class HandleState<T>(
                 when {
                     response.isSuccessful && body != null -> {
                         data = body
-                        emit(Command.Success(body))
+                        emit(Result.Success(body))
                     }
                     action.value == ActionCommand.SwipeRefresh -> {
-                        emit(Command.SwipeRefreshFailure(Exception()))
+                        emit(Result.SwipeRefreshFailure(Exception()))
                     }
                     else -> {
-                        emit(Command.Failure(Exception()))
+                        emit(Result.Error(Exception()))
                     }
                 }
             } catch (exception: Exception) {
                 when {
                     action.value == ActionCommand.SwipeRefresh -> {
-                        emit(Command.SwipeRefreshFailure(Exception()))
+                        emit(Result.SwipeRefreshFailure(Exception()))
                         data?.let {
                             // emit success with existing data
-                            emit(Command.Success(it))
+                            emit(Result.Success(it))
                         }
                     }
                     else -> {
-                        emit(Command.Failure(Exception()))
+                        emit(Result.Error(Exception()))
                     }
                 }
             }
@@ -84,5 +85,36 @@ class HandleState<T>(
 
     fun loadDone() {
         action.value = ActionCommand.LoadDone
+    }
+}
+var isConnectedToNetwork = true
+
+suspend fun <T : Any> handleApi(
+    call: suspend () -> Response<T>,
+    errorMessage: String = "Problem Fetching data at the moment!"
+): Result<T> {
+    try {
+        val response = call()
+        if (response.isSuccessful) {
+            isConnectedToNetwork = true
+            response.body()?.let {
+                return Result.Success(it)
+            }
+        }
+        response.errorBody()?.let {
+            return try {
+                val errorString = it.string()
+                val errorObject = JSONObject(errorString)
+                Result.Failure(errorObject.getString("status_message") ?: errorMessage)
+            } catch (ignored: JsonSyntaxException) {
+                Result.Failure(ignored.message.toString())
+            }
+        }
+        return Result.Failure(errorMessage)
+    } catch (e: Exception) {
+        if (e is IOException) {
+            isConnectedToNetwork = false
+        }
+        return Result.Failure(e.message ?: errorMessage)
     }
 }
