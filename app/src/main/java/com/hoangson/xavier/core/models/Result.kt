@@ -10,6 +10,3 @@ sealed class Result<out R> {
     data class SwipeRefreshFailure(val exception: java.lang.Exception) : Result<Nothing>()
 }
 
-val <D> Result<D>.data: D?
-    get() = (this as? Result.Success)?.data
-

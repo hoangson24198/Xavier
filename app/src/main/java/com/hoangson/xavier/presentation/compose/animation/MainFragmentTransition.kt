@@ -1,11 +1,14 @@
 package com.hoangson.xavier.presentation.compose.animation
 
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.hoangson.xavier.presentation.compose.animation.MainTransitionState.START
+import com.hoangson.xavier.presentation.ui.whiteBlueGradient
 
 enum class MainTransitionState {
     START, END
@@ -56,4 +59,21 @@ fun titleAlphaPropkey(state: MainTransitionState): Float {
         if (state == START) 0F else 1F
     }
     return alpha
+}
+
+@Composable
+fun colorPropKey(state : Boolean) : Color {
+    val transition : Transition<Boolean> = updateTransition(state)
+    val color by transition.animateColor(transitionSpec = {
+        repeatable(
+            iterations = 5000,
+            animation = keyframes {
+                durationMillis = 300
+                whiteBlueGradient[1] at 100
+            }
+        )
+    },label = ""){ state ->
+        if (state) whiteBlueGradient[0] else whiteBlueGradient[2]
+    }
+    return color
 }

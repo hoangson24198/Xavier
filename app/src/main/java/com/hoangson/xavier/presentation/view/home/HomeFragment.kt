@@ -11,15 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        fullScreen()
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     @Composable
     override fun setContent() {
         super.setContent()

@@ -3,7 +3,6 @@ package com.hoangson.xavier.presentation.view.onboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoangson.xavier.R
-import com.hoangson.xavier.core.models.data
 import com.hoangson.xavier.data.models.OnBoardItem
 import com.hoangson.xavier.domain.pref.OnBoardingCompleteSuspenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -16,8 +16,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hoangson.xavier.core.bases.BaseFragment
+import com.hoangson.xavier.core.models.Command
 import com.hoangson.xavier.core.models.Result
 import com.hoangson.xavier.core.util.navigateSafely
 import com.hoangson.xavier.presentation.compose.layout.*
@@ -41,8 +43,10 @@ class LoginFragment : BaseFragment() {
     fun LoginView(
         onLoginComplete: () -> Unit
     ) {
+        val stateLoading = remember { mutableStateOf(false) }
         val viewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
         Box(Modifier.fillMaxSize()) {
+            LoadingContent(stateLoading.value){}
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -65,7 +69,7 @@ class LoginFragment : BaseFragment() {
                 }
                 val userNameErrorState = viewModel.userNameErrorLiveData.observeAsState()
                 val passwordErrorState = viewModel.passwordErrorLiveData.observeAsState()
-                val username = remember { mutableStateOf(TextFieldValue("")) }
+                val username = remember { mutableStateOf(TextFieldValue("hoangson@gmail.com")) }
 
                 OutlinedTextField(
                     value = username.value,
@@ -85,7 +89,7 @@ class LoginFragment : BaseFragment() {
                     color = MaterialTheme.colors.error)
                 columnSpacer(value = 16)
 
-                val password = remember { mutableStateOf(TextFieldValue("")) }
+                val password = remember { mutableStateOf(TextFieldValue("123456")) }
                 OutlinedTextField(
                     value = password.value,
                     onValueChange = { text -> password.value = text },
@@ -104,9 +108,28 @@ class LoginFragment : BaseFragment() {
                 columnSpacer(value = 30)
 
                 CardButton(text = "Login", onClick = {
-                    Timber.d("HsLogin ${username.value.text} and ${password.value.text}")
+                    stateLoading.value = true
                     viewModel.login(username = username.value.text, password = password.value.text)
                 })
+            }
+
+        }
+        viewModel.loginResultLiveData.observe(viewLifecycleOwner) {
+            when(it){
+                is Command.Loading -> {
+                    stateLoading.value = true
+                    Timber.d("HSLogin Loading")
+                }
+                is Command.NoLoading -> {
+                    stateLoading.value = false
+                    Timber.d("HSLogin No loading")
+                }
+                is Command.Success -> {
+                    //onLoginComplete()
+                }
+                is Command.Error -> {
+                    Timber.d("HSLogin failded")
+                }
             }
         }
     }
