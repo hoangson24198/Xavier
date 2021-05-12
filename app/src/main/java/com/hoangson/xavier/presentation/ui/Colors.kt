@@ -23,7 +23,10 @@ val Green500 = Color(0xFF1EB980)
 val DarkBlue900 = Color(0xFF26282F)
 val orangeError = Color(0xFFF94701)
 val whiteGhost = Color(0xFFF8F8FF)
-val transparent = Color(0x00FFFFFF)
+val whiteGhost10 = Color(0x1AF8F8FF)
+val loading1 = Color(0xFF0294A5)
+val loading2 = Color(0xFFF3E96B)
+val loading3 = Color(0xFFF05837)
 
 
 val String.color

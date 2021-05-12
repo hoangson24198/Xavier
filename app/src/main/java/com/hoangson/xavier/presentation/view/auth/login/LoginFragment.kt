@@ -46,7 +46,7 @@ class LoginFragment : BaseFragment() {
         val stateLoading = remember { mutableStateOf(false) }
         val viewModel = ViewModelProvider(requireActivity()).get(LoginViewModel::class.java)
         Box(Modifier.fillMaxSize()) {
-            LoadingContent(stateLoading.value){}
+            LoadingContent(stateLoading.value)
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -28,18 +28,10 @@
         android:label="AuthFragment" >
         <action
             android:id="@+id/action_authFragment_to_registerFragment"
-            app:destination="@id/registerFragment"
-            app:enterAnim="@anim/slide_in_top"
-            app:exitAnim="@anim/no_anim"
-            app:popEnterAnim="@anim/no_anim"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:destination="@id/registerFragment"/>
         <action
             android:id="@+id/action_authFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_top"
-            app:exitAnim="@anim/no_anim"
-            app:popEnterAnim="@anim/no_anim"
-            app:popExitAnim="@anim/slide_out_top"/>
+            app:destination="@id/loginFragment"/>
         <argument
             android:name="isOnBoard"
             app:argType="boolean"
