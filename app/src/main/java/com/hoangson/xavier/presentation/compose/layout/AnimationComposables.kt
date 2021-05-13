@@ -34,7 +34,7 @@ fun CircleWave(modifier: Modifier = Modifier) {
 
         val (width, height) = size
         val waveAmplitude = size.minDimension / 60
-        val circleRadius = size.minDimension / 5f - 9 * waveAmplitude
+        val circleRadius = size.minDimension / 5f - 2 * waveAmplitude
 
         Timber.d("HSCircleWave waveAmplitude = $waveAmplitude circleRadius = $circleRadius")
 

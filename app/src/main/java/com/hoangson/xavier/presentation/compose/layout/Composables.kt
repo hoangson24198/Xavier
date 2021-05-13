@@ -28,6 +28,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import com.hoangson.xavier.R
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.window.Dialog
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
@@ -190,7 +191,15 @@ fun LoadingContent(
     loading: Boolean
 ) {
     if (loading) {
-        Box(
+        Dialog(onDismissRequest = {}) {
+            Box(
+            modifier = Modifier
+                .size(128.dp).background(whiteGhost10)
+        ){
+                CircleWave(modifier = Modifier.fillMaxSize())
+            }
+        }
+        /*Box(
             modifier = Modifier
                 .fillMaxSize().background(whiteGhost10)
         ) {
@@ -201,7 +210,7 @@ fun LoadingContent(
             ) {
                 CircleWave(modifier = Modifier.fillMaxSize())
             }
-        }
+        }*/
     }
 }
 @Composable
