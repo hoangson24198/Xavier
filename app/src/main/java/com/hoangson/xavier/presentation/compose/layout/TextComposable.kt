@@ -101,8 +101,8 @@ fun Title(textSate: MutableState<String> = mutableStateOf(""), modifier: Modifie
 }
 
 @Composable
-fun H6(text: String, modifier: Modifier = Modifier) {
-    Text(text = text, style = MaterialTheme.typography.h6, modifier = modifier)
+fun H6(text: String, modifier: Modifier = Modifier, color: Color) {
+    Text(text = text, style = MaterialTheme.typography.h6, modifier = modifier, color = color)
 }
 
 @Composable

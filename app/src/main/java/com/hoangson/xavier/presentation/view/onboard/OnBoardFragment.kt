@@ -66,7 +66,7 @@ class OnBoardFragment : BaseFragment() {
         val launchDestination: Boolean by viewModel.viewState.collectAsState()
 
         if (launchDestination) {
-            navController.navigateSafely(OnBoardFragmentDirections.actionOnBoardFragmentToAuthFragment())
+            navController.navigateSafely(OnBoardFragmentDirections.actionOnBoardFragmentToLoginFragment())
         }
 
         val currentPage = remember { mutableStateOf(0) }

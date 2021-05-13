@@ -40,7 +40,7 @@ class SplashFragment : BaseFragment() {
                         )
                     }
                     LaunchDestination.AUTH_ACTIVITY -> {
-                        navController.navigateSafely(SplashFragmentDirections.actionSplashFragmentToAuthFragment())
+                        navController.navigateSafely(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
                     }
 
                     LaunchDestination.ONBOARD -> {
